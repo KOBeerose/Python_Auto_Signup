@@ -1,23 +1,50 @@
 import time
+import string
+from datetime import datetime, timedelta
 from msedge.selenium_tools import Edge, EdgeOptions
 from selenium.webdriver.support.ui import Select
 
 
-# !!!!! this script is meant to work on Treehouse website but you can make changes to the class names and ids to use it on another one !!!! 
+# !!!!! this script is meant to work on Treehouse website but you can make changes use it with another one !!!! 
+
+
+# define the start and the end date of the free trial  
+sdate = (datetime.now()).strftime('%d/%m/%Y')
+edate = (datetime.now() + timedelta(days=7) ).strftime('%d/%m/%Y')
+
+
+# this function gets the user info and save them in variables
+def get_info(filename): 
+    elem_list=["url","email","firstname","lastname","password","card","zip","cvv","exp"]   # list of expressions preceding the user info
+    with open(filename, 'r') as read_obj: 
+            for line in read_obj:
+                for elem in elem_list:  # Get the value after an expression occurrence
+                    if elem in line:
+                        globals()[elem] = line.partition(elem+": ")[2].translate({ord(c): None for c in string.whitespace})   # save the value in a variable named according to the expression preceding it
 
 
 
-# \/ \/ \/ \/ \/ \/ \/ \/ \/  values of the user information
- 
-url="https://teamtreehouse.com/?irgwc=1&click_id=UGR1JzW-VxyLWLMwUx0Mo3EJUkBxKF39Jwrmxs0&iradid=294479&ircid=3944&irpid=10098&iradname=4%20Months%20Off%20Basic%21&iradtype=TEXT_LINK&iradsize=&irmpname=Ziff%20Davis%20-%20Offers.com&irmptype=mediapartner&utm_source=ir&cid=4612"
-u_mail= "example@email.ai"
-u_fname= "first_name"
-u_lname= "last_name"
-u_password= "password"
-u_card= "card_number"
-u_zp= "zip_code"
-u_cvv= "cvv"
+# this function will add new lines the top of a file
+def add_at_top(filename, lines): 
+    with open(filename, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(lines.rstrip('\r\n') + '\n' + content + '\n')
 
+
+# getting values of the user information
+get_info("Info.txt")
+
+u_mail= email
+u_mail= email
+u_fname= firstname
+u_lname= lastname
+u_password= password
+u_card= card
+u_zp= zip
+u_cvv= cvv
+u_card_month=int(exp[:2])
+u_card_year=int(exp[3:])-20
 
 # configuration and direction to the website URL 
 options = EdgeOptions()
@@ -63,10 +90,10 @@ driver.find_element_by_xpath("//label[@class='form-label' and @for='account_sign
 driver.find_element_by_xpath("//p[@class='radio-checkbox-note']").click()
 
 sel1 = Select(driver.find_element_by_xpath("//select[@name='credit_card_month']"))
-sel1.select_by_index(9)
+sel1.select_by_index(u_card_month)
 
 sel2 = Select(driver.find_element_by_xpath("//select[@name='credit_card_year']"))
-sel2.select_by_index(3)
+sel2.select_by_index(u_card_year)
 
 l2= driver.find_element_by_xpath("//div[@class='form-footer']")
 driver.execute_script("arguments[0].scrollIntoView(true);", l2)
@@ -75,3 +102,7 @@ time.sleep(0.4)
 outside = driver.find_element_by_name("commit")
 outside.click()
 
+# wait for the page to refresh and add the account to the file Account if the sign_up process was successful
+time.sleep(2)
+if (driver.current_url=="https://teamtreehouse.com/welcome"):
+    add_at_top("Accounts.txt", "from " + sdate + " to " + edate + "\nemail: " + u_mail + "\npassword: " + u_password + "\n \n")

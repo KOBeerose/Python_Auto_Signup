@@ -1,0 +1,20 @@
+# !!! you can change the order but make sure to keep this format or change the code to match it otherwise !!!
+
+url: https://teamtreehouse.com/?irgwc=1&click_id=UGR1JzW-VxyLWLMwUx0Mo3EJUkBxKF39Jwrmxs0&iradid=294479&ircid=3944&irpid=10098&iradname=4%20Months%20Off%20Basic%21&iradtype=TEXT_LINK&iradsize=&irmpname=Ziff%20Davis%20-%20Offers.com&irmptype=mediapartner&utm_source=ir&cid=4612
+
+email: example@mail.com
+firstname: first_name
+lastname: last_name
+password: password
+card: 432xxxxxxxxxxxxx
+cvv: xxx
+zip: zip_code
+exp: 05/23
+
+
+
+
+
+
+
+
