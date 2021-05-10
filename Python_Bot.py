@@ -1,16 +1,11 @@
 import time
 import string
-from datetime import datetime, timedelta
 from msedge.selenium_tools import Edge, EdgeOptions
 from selenium.webdriver.support.ui import Select
 
 
 # !!!!! this script is meant to work on Treehouse website but you can make changes use it with another one !!!! 
 
-
-# define the start and the end date of the free trial  
-sdate = (datetime.now()).strftime('%d/%m/%Y')
-edate = (datetime.now() + timedelta(days=7) ).strftime('%d/%m/%Y')
 
 
 # this function gets the user info and save them in variables
@@ -22,14 +17,6 @@ def get_info(filename):
                     if elem in line:
                         globals()[elem] = line.partition(elem+": ")[2].translate({ord(c): None for c in string.whitespace})   # save the value in a variable named according to the expression preceding it
 
-
-
-# this function will add new lines the top of a file
-def add_at_top(filename, lines): 
-    with open(filename, 'r+') as f:
-        content = f.read()
-        f.seek(0, 0)
-        f.write(lines.rstrip('\r\n') + '\n' + content + '\n')
 
 
 # getting values of the user information
@@ -101,8 +88,3 @@ time.sleep(0.4)
 
 outside = driver.find_element_by_name("commit")
 outside.click()
-
-# wait for the page to refresh and add the account to the file Account if the sign_up process was successful
-time.sleep(2)
-if (driver.current_url=="https://teamtreehouse.com/welcome"):
-    add_at_top("Accounts.txt", "from " + sdate + " to " + edate + "\nemail: " + u_mail + "\npassword: " + u_password + "\n \n")
