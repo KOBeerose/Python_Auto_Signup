@@ -19,6 +19,14 @@ def get_info(filename):
 
 
 
+# this function will add new lines the top of a file
+def add_at_top(filename, lines): 
+    with open(filename, 'r+') as f:
+        content = f.read()
+        f.seek(0, 0)
+        f.write(lines.rstrip('\r\n') + '\n' + content + '\n')
+
+
 # getting values of the user information
 get_info("Info.txt")
 
@@ -42,7 +50,7 @@ driver.get(url)
 
 
 
-# entering user's email and clicking the register button
+# entering user's email and clicking the join now button
 fmail = driver.find_element_by_name("account_signup[email]")
 fmail.send_keys(u_mail)
 
@@ -88,3 +96,8 @@ time.sleep(0.4)
 
 outside = driver.find_element_by_name("commit")
 outside.click()
+
+# wait for the page to refresh and add the account to the file Account if the sign_up process was successful
+time.sleep(2)
+if (driver.current_url=="https://teamtreehouse.com/welcome"):
+    add_at_top("Accounts.txt", "\nemail: " + u_mail + "\npassword: " + u_password + "\n \n")
