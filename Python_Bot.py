@@ -1,11 +1,24 @@
 import time
 import string
+from datetime import datetime, timedelta
 from msedge.selenium_tools import Edge, EdgeOptions
 from selenium.webdriver.support.ui import Select
 
 
+
 # !!!!! this script is meant to work on Treehouse website but you can make changes use it with another one !!!! 
 
+# define the start and the end date of the free trial  
+sdate = (datetime.now()).strftime('%d/%m/%Y')
+edate = (datetime.now() + timedelta(days=7) ).strftime('%d/%m/%Y')
+
+
+# string containting the number of the week 
+week_label=str(int(sdate[0:2])%7+int(int(sdate[0:2])/7)) 
+# string containting the number of the month
+month_label=str(int(sdate[3:5]))
+
+label=week_label+month_label # we use this variable to label the created account using the week and month numbers
 
 
 # this function gets the user info and save them in variables
@@ -30,16 +43,16 @@ def add_at_top(filename, lines):
 # getting values of the user information
 get_info("Info.txt")
 
-u_mail= email
-u_mail= email
+u_mail= label+email # !important: adding the label to the start of the prefixed email to make it unique each week
 u_fname= firstname
 u_lname= lastname
-u_password= password
+u_password= label+password # Optional: adding the same label to the start of the prefixed password 
 u_card= card
 u_zp= zip
 u_cvv= cvv
 u_card_month=int(exp[:2])
 u_card_year=int(exp[3:])-20
+
 
 # configuration and direction to the website URL 
 options = EdgeOptions()
@@ -100,4 +113,4 @@ outside.click()
 # wait for the page to refresh and add the account to the file Account if the sign_up process was successful
 time.sleep(2)
 if (driver.current_url=="https://teamtreehouse.com/welcome"):
-    add_at_top("Accounts.txt", "\nemail: " + u_mail + "\npassword: " + u_password + "\n \n")
+    add_at_top("Accounts.txt", "from " + sdate + " to " + edate + "\nemail: " + u_mail + "\npassword: " + u_password + "\n \n")

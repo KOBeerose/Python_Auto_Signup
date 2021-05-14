@@ -2,7 +2,7 @@
 
 url: https://teamtreehouse.com/?irgwc=1&click_id=UGR1JzW-VxyLWLMwUx0Mo3EJUkBxKF39Jwrmxs0&iradid=294479&ircid=3944&irpid=10098&iradname=4%20Months%20Off%20Basic%21&iradtype=TEXT_LINK&iradsize=&irmpname=Ziff%20Davis%20-%20Offers.com&irmptype=mediapartner&utm_source=ir&cid=4612
 
-email: example@mail.com
+email: example@email.com
 firstname: first_name
 lastname: last_name
 password: password
