@@ -1,6 +1,8 @@
 # Python_Auto_Signup
 This a Python program I created to automate the process of signing up to some services.
+
 The script will get sign up information from a text file and format it accordingly.
+
 For each successful signup, the program will add the account email, password, and the start/end date of the subscription.
 
 
